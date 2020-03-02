@@ -1,0 +1,41 @@
+.App {
+  text-align: center;
+  color: red;
+}
+.ml-30, .body-content{
+  margin-left: 30px;
+}
+.mt-10{
+  margin-top: 10px;
+}
+.ml-10{
+  margin-left: 10px;
+}
+
+.text-right{
+  float: right;
+}
+
+.form-div, .setting-div, span{
+  margin-top: 50px;
+}
+
+.active{
+  border: solid 3px black;
+}
+
+#content-setting{
+  padding: 10px;
+  border: solid 3px red;
+}
+
+.span-color-div span{
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.copyright {
+  float: right;
+  margin-right: 40px;
+}
