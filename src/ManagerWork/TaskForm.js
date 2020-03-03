@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-
+import { connect } from 'react-redux';
+import * as action from './../actions/index';
 class TaskForm extends Component {
    constructor(props){
         super(props);
         this.state = {
             id: '',
             txtName: '',
-            checkStatus: false,
+            checkStatus: false, 
         };
     }
 
@@ -50,9 +51,11 @@ class TaskForm extends Component {
     }
 
     onSubmit = (event) =>{
-
         event.preventDefault();
-        this.props.onSubmitTaskForm(this.state);
+
+        this.props.onAddTask(this.state);
+
+        // this.props.onSubmitTaskForm(this.state);
 
         /*this.props.onSubmitTaskForm(this.state.txtName, this.state.checkStatus === "true" ? true : false);*/
         this.onClear();
@@ -103,4 +106,24 @@ class TaskForm extends Component {
   		);
 	}
 }
-export default TaskForm;
+
+const mapStateToProps = state =>{
+    return {
+
+    }
+};
+
+const mapDispatchToProps =(dispatch,props) =>{
+    return {
+        onAddTask : (task) =>{
+            dispatch(action.addTask(task));
+        },   
+        onCloseForm : () =>{
+            dispatch(action.closeForm());
+        }
+    }
+}
+
+/*_ mapStateToProps : chuyển state từ store thành props của component
+_ mapDispatchToProps : chuyển các action thành props.*/
+export default connect(mapStateToProps,mapDispatchToProps)(TaskForm);
