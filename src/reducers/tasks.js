@@ -12,6 +12,15 @@ var randomID = () => {
 var data = JSON.parse(localStorage.getItem('tasks'))
 var initialState = data ? data : [];
 
+var findIndex = (tasks,id) => {
+	var result = -1;
+	tasks.forEach((task,index) => {
+	   if(task.id === id) {
+		result = index;
+	   }
+	});
+	return result;
+}
 
 var myReducer = (state = initialState, action) =>{
 	switch(action.type){
@@ -31,6 +40,13 @@ var myReducer = (state = initialState, action) =>{
 			/*copy ra 1 arr moi va tra ve*/
 		case types.UPDATE_SATATUS_TASK: 
 			console.log(action);
+			var id = action.id
+			var index = findIndex(state,id);
+			state[index] = {
+				...state[index],
+				status : !state[index].status
+			}; 
+			localStorage.setItem('tasks',JSON.stringify(state))	;
 			return [...state];	
 
 		default: return state;

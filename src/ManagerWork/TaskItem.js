@@ -46,9 +46,7 @@ class TaskItem extends Component {
 }
 
 const mapStateToProps = state =>{
-    return {
-      
-    }
+    return {}
 };
 
 const mapDispatchToProps =(dispatch,props) =>{
@@ -58,4 +56,4 @@ const mapDispatchToProps =(dispatch,props) =>{
         }
     }
 }
-export default (mapStateToProps,mapDispatchToProps)(TaskItem);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskItem);

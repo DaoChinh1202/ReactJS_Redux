@@ -36,22 +36,6 @@ class Index extends Component {
 
   
 
-    // onUpdateStatus = (id) => {
-    //     var { tasks } = this.state;
-    //    /* var index = this.findIndex(id);*/
-    //    /*use library*/
-    //    var index = findIndex(tasks,(task) => {
-    //         return task.id === id;
-    //    });
-    //     if(index !==  -1){
-    //         tasks[index].status = !tasks[index].status;
-    //         this.setState({
-    //             tasks : tasks
-    //         });
-
-    //         localStorage.setItem('tasks', JSON.stringify(tasks)); 
-    //     }
-    // }
 
     findIndex = (id) => {
         var { tasks } = this.state;
