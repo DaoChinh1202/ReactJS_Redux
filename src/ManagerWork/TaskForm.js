@@ -74,12 +74,12 @@ class TaskForm extends Component {
     }
 
 	render(){
-        var {id} = this.state;
+        if(!this.props.isDisplayForm) return '';
 		return (
             <div className="panel panel-warning">
                 <div className="panel-heading">
                     <h3 className="panel-title" >
-                        { id !== '' ? 'Update' : 'Add'  }
+                        { this.state !== '' ? 'Update' : 'Add'  }
                        <span className="" onClick={ this.onCloseForm }><i className="fas fa-times-circle text-right"></i></span>
                   
                     </h3>
@@ -109,7 +109,7 @@ class TaskForm extends Component {
 
 const mapStateToProps = state =>{
     return {
-
+        isDisplayForm: state.isDisplayForm
     }
 };
 

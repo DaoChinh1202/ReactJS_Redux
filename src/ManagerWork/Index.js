@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import TaskForm from './TaskForm';
 import Control from './Control';
 import TaskList from './TaskList';
@@ -6,118 +6,102 @@ import { findIndex } from 'lodash';
 import { connect } from 'react-redux';
 import * as action from './../actions/index';
 class Index extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            taskEditing : null,
-            fillter : {
-                nameFil : '',
-                statusFil : -1,
+            taskEditing: null,
+            fillter: {
+                nameFil: '',
+                statusFil: -1,
             },
-            keySearch : '',
+            keySearch: '',
             bySortSearch: 'name',
             valueSortSearch: 1
 
         }
     }
-  
 
 
-    onToggleForm = () =>{
+
+    onToggleForm = () => {
         this.props.onToggleForm()
     }
 
-   
-    onShowForm = () =>{
-         this.setState({
-            isDisplayForm : true
+
+    onShowForm = () => {
+        this.setState({
+            isDisplayForm: true
         });
     }
-
-  
 
 
     findIndex = (id) => {
         var { tasks } = this.state;
         var result = -1;
-        tasks.forEach((task,index) => {
-           if(task.id === id) {
-            result = index;
-           }
+        tasks.forEach((task, index) => {
+            if (task.id === id) {
+                result = index;
+            }
         });
         return result;
     }
 
-    onDelete = (id) => {
-        var { tasks } = this.state;
-        var index = this.findIndex(id);
-        if(index !==  -1){
-            tasks.splice(index,1)
-            this.setState({
-                tasks : tasks
-            });
-
-            localStorage.setItem('tasks', JSON.stringify(tasks)); 
-        }
-        this.onCloseForm();
-
-    }
 
     onUpdateValue = (id) => {
         var { tasks } = this.state;
         var index = this.findIndex(id);
         var taskEdit = tasks[index];
         this.setState({
-            taskEditing : taskEdit
+            taskEditing: taskEdit
         });
         this.onShowForm();
 
         // console.log(this.state.taskEditing)
     }
 
-    
 
-    onFillter = (nameFillter,fillterStatus) => {
-       /* fillterStatus = parseInt(fillterStatus,10);*/
+
+    onFillter = (nameFillter, fillterStatus) => {
+        /* fillterStatus = parseInt(fillterStatus,10);*/
         fillterStatus = +fillterStatus;
         this.setState({
-            fillter : {
-                nameFil : nameFillter.toLowerCase(),
-                statusFil : fillterStatus,
+            fillter: {
+                nameFil: nameFillter.toLowerCase(),
+                statusFil: fillterStatus,
             }
         });
     }
     onSearch = (keyword) => {
         this.setState({
-            keySearch : keyword
+            keySearch: keyword
         })
 
     }
 
-    onSort = (sortBy, sortValue) =>{
+    onSort = (sortBy, sortValue) => {
         this.setState({
-           bySortSearch: sortBy,
-           valueSortSearch: sortValue
+            bySortSearch: sortBy,
+            valueSortSearch: sortValue
         });
-        console.log(sortBy,sortValue)
+        console.log(sortBy, sortValue)
     }
 
-	render(){
+    render() {
         var { taskEditing, fillter, keySearch, bySortSearch, valueSortSearch } = this.state;  // var tasks = this.state.tasks;
-        var {isDisplayForm} = this.props;
+        var { isDisplayForm } = this.props;
         // if(fillter){
         //     if (fillter.nameFil) {
         //         tasks = tasks.filter((task) => {
         //             return task.name.toLowerCase().indexOf(fillter.nameFil) !== -1;  
         //         });
         //     }
-            // tasks = tasks.filter((task) => {
-            //     if(fillter.statusFil === -1){
-            //         return task;
-            //     }else{
-            //         return task.status === (fillter.statusFil === 1 ? true : false)
-            //     }
-            // });
+        // tasks = tasks.filter((task) => {
+        //     if(fillter.statusFil === -1){
+        //         return task;
+        //     }else{
+        //         return task.status === (fillter.statusFil === 1 ? true : false)
+        //     }
+        // });
 
         // }
 
@@ -145,61 +129,54 @@ class Index extends Component {
         //     });
         // }
 
-
-        var elementTaskForm = isDisplayForm ? <TaskForm taskEdit={taskEditing} /> : '';
-		return (
-		    <div className="container">
-        <div className="text-center">
-            <h1>Workflow Management</h1>
-            <hr/>
-        </div>
-        <div className="row">
-            <div className={  isDisplayForm ? 'col-xs-4 col-sm-4 col-md-4 col-lg-4' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12' }>
-               {/* <TaskForm />*/}
-               { elementTaskForm }
-            </div>
-            <div className= { isDisplayForm ? 'col-xs-8 col-sm-8 col-md-8 col-lg-8' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'}>
-                <button type="button" className="btn btn-primary" onClick = { this.onToggleForm }>
-                    <span className="fa fa-plus mr-5"></span>Add work
-                </button>
-              {/*  <button type="button" className="btn btn-danger ml-10" onClick={ this.onGenerateData }>
-                    <span className="fa fa-plus mr-5"></span>Generate Data
-                </button>*/}
-               	<Control    onSearch = {this.onSearch } 
-                            onSort = { this.onSort } 
-                            bySortSearch = { bySortSearch } 
-                            valueSortSearch ={ valueSortSearch } />
-                <br />
-                <div className="row mt-15">
-                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <TaskList 
-                            onDelete = {this.onDelete } 
-                            onUpdateValue = {this.onUpdateValue}
-                            onFillter = {this.onFillter} 
-                            />
+        return (
+            <div className="container">
+                <div className="text-center">
+                    <h1>Workflow Management</h1>
+                    <hr />
+                </div>
+                <div className="row">
+                    <div className={isDisplayForm ? 'col-xs-4 col-sm-4 col-md-4 col-lg-4' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'}>
+                    <TaskForm taskEdit={taskEditing} />
+                    </div>
+                    <div className={isDisplayForm ? 'col-xs-8 col-sm-8 col-md-8 col-lg-8' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'}>
+                        <button type="button" className="btn btn-primary" onClick={this.onToggleForm}>
+                            <span className="fa fa-plus mr-5"></span>Add work
+                        </button>
+                        <Control onSearch={this.onSearch}
+                            onSort={this.onSort}
+                            bySortSearch={bySortSearch}
+                            valueSortSearch={valueSortSearch} />
+                        <br />
+                        <div className="row mt-15">
+                            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <TaskList
+                                    onUpdateValue={this.onUpdateValue}
+                                    onFillter={this.onFillter}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-  		);
-	}
+        );
+    }
 }
 
-const mapStateToProps = state =>{
+const mapStateToProps = state => {
     return {
-        isDisplayForm : state.isDisplayForm    
+        isDisplayForm: state.isDisplayForm
     }
 };
 
-const mapDispatchToProps =(dispatch,props) =>{
+const mapDispatchToProps = (dispatch, props) => {
     return {
-        onToggleForm : () =>{
+        onToggleForm: () => {
             dispatch(action.toggleForm());
         },
-        onOpenForm : () =>{
+        onOpenForm: () => {
             dispatch(action.openForm());
-        },  
+        },
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Index);
