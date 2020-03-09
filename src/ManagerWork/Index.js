@@ -24,7 +24,17 @@ class Index extends Component {
 
 
     onToggleForm = () => {
-        this.props.onToggleForm()
+        var { itemEditing } = this.props;
+        if (itemEditing && itemEditing.id !== '') {
+            this.props.onOpenForm();
+        } else {
+            this.props.onToggleForm();
+        }
+        this.props.onClearTask({
+            id: '',
+            txtName: '',
+            checkStatus: false,
+        })
     }
 
 
@@ -87,7 +97,7 @@ class Index extends Component {
     }
 
     render() {
-        var { taskEditing, fillter, keySearch, bySortSearch, valueSortSearch } = this.state;  // var tasks = this.state.tasks;
+        var { fillter, keySearch, bySortSearch, valueSortSearch } = this.state;  // var tasks = this.state.tasks;
         var { isDisplayForm } = this.props;
         // if(fillter){
         //     if (fillter.nameFil) {
@@ -137,7 +147,7 @@ class Index extends Component {
                 </div>
                 <div className="row">
                     <div className={isDisplayForm ? 'col-xs-4 col-sm-4 col-md-4 col-lg-4' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'}>
-                    <TaskForm taskEdit={taskEditing} />
+                        <TaskForm />
                     </div>
                     <div className={isDisplayForm ? 'col-xs-8 col-sm-8 col-md-8 col-lg-8' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'}>
                         <button type="button" className="btn btn-primary" onClick={this.onToggleForm}>
@@ -165,7 +175,8 @@ class Index extends Component {
 
 const mapStateToProps = state => {
     return {
-        isDisplayForm: state.isDisplayForm
+        isDisplayForm: state.isDisplayForm,
+        itemEditing: state.itemEditing
     }
 };
 
@@ -177,6 +188,9 @@ const mapDispatchToProps = (dispatch, props) => {
         onOpenForm: () => {
             dispatch(action.openForm());
         },
+        onClearTask: (task) => {
+            dispatch(action.updateTask(task));
+        }
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Index);
