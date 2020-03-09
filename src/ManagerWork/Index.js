@@ -10,10 +10,6 @@ class Index extends Component {
         super(props);
         this.state = {
             taskEditing: null,
-            fillter: {
-                nameFil: '',
-                statusFil: -1,
-            },
             keySearch: '',
             bySortSearch: 'name',
             valueSortSearch: 1
@@ -69,18 +65,6 @@ class Index extends Component {
         // console.log(this.state.taskEditing)
     }
 
-
-
-    onFillter = (nameFillter, fillterStatus) => {
-        /* fillterStatus = parseInt(fillterStatus,10);*/
-        fillterStatus = +fillterStatus;
-        this.setState({
-            fillter: {
-                nameFil: nameFillter.toLowerCase(),
-                statusFil: fillterStatus,
-            }
-        });
-    }
     onSearch = (keyword) => {
         this.setState({
             keySearch: keyword
@@ -97,29 +81,9 @@ class Index extends Component {
     }
 
     render() {
-        var { fillter, keySearch, bySortSearch, valueSortSearch } = this.state;  // var tasks = this.state.tasks;
+        var {  keySearch, bySortSearch, valueSortSearch } = this.state;  // var tasks = this.state.tasks;
         var { isDisplayForm } = this.props;
-        // if(fillter){
-        //     if (fillter.nameFil) {
-        //         tasks = tasks.filter((task) => {
-        //             return task.name.toLowerCase().indexOf(fillter.nameFil) !== -1;  
-        //         });
-        //     }
-        // tasks = tasks.filter((task) => {
-        //     if(fillter.statusFil === -1){
-        //         return task;
-        //     }else{
-        //         return task.status === (fillter.statusFil === 1 ? true : false)
-        //     }
-        // });
 
-        // }
-
-        // if (keySearch) {
-        //      tasks = tasks.filter((task) => {
-        //             return task.name.toLowerCase().indexOf(keySearch) !== -1;  
-        //         });
-        // }
 
         // console.log(bySortSearch, valueSortSearch);
 
@@ -160,10 +124,7 @@ class Index extends Component {
                         <br />
                         <div className="row mt-15">
                             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <TaskList
-                                    onUpdateValue={this.onUpdateValue}
-                                    onFillter={this.onFillter}
-                                />
+                                <TaskList />
                             </div>
                         </div>
                     </div>
