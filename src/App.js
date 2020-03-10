@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="body-content">
       <Work />
-      <span className= "copyright">© Copyrigh chinhcn</span>
+     
     </div>
   );
 }

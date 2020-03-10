@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import TaskForm from './TaskForm';
 import Control from './Control';
 import TaskList from './TaskList';
-import { findIndex } from 'lodash';
 import { connect } from 'react-redux';
 import * as action from './../actions/index';
 class Index extends Component {
@@ -10,7 +9,6 @@ class Index extends Component {
         super(props);
         this.state = {
             taskEditing: null,
-            keySearch: '',
             bySortSearch: 'name',
             valueSortSearch: 1
 
@@ -40,19 +38,6 @@ class Index extends Component {
         });
     }
 
-
-    findIndex = (id) => {
-        var { tasks } = this.state;
-        var result = -1;
-        tasks.forEach((task, index) => {
-            if (task.id === id) {
-                result = index;
-            }
-        });
-        return result;
-    }
-
-
     onUpdateValue = (id) => {
         var { tasks } = this.state;
         var index = this.findIndex(id);
@@ -61,8 +46,6 @@ class Index extends Component {
             taskEditing: taskEdit
         });
         this.onShowForm();
-
-        // console.log(this.state.taskEditing)
     }
 
     onSearch = (keyword) => {
@@ -72,37 +55,8 @@ class Index extends Component {
 
     }
 
-    onSort = (sortBy, sortValue) => {
-        this.setState({
-            bySortSearch: sortBy,
-            valueSortSearch: sortValue
-        });
-        console.log(sortBy, sortValue)
-    }
-
     render() {
-        var {  keySearch, bySortSearch, valueSortSearch } = this.state;  // var tasks = this.state.tasks;
         var { isDisplayForm } = this.props;
-
-
-        // console.log(bySortSearch, valueSortSearch);
-
-        // /*sort*/
-
-        // if(bySortSearch === 'name') {
-        //     tasks.sort((a,b) => {
-        //         if(a.name > b.name) return valueSortSearch;
-        //         else if(a.name < b.name) return -valueSortSearch;
-        //         else return 0;
-        //     });
-        // }else{
-        //     tasks.sort((a,b) => {
-        //         if(a.status > b.status) return valueSortSearch;
-        //         else if(a.status < b.status) return -valueSortSearch;
-        //         else return 0;
-        //     });
-        // }
-
         return (
             <div className="container">
                 <div className="text-center">
@@ -117,10 +71,7 @@ class Index extends Component {
                         <button type="button" className="btn btn-primary" onClick={this.onToggleForm}>
                             <span className="fa fa-plus mr-5"></span>Add work
                         </button>
-                        <Control onSearch={this.onSearch}
-                            onSort={this.onSort}
-                            bySortSearch={bySortSearch}
-                            valueSortSearch={valueSortSearch} />
+                        <Control />
                         <br />
                         <div className="row mt-15">
                             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -129,6 +80,7 @@ class Index extends Component {
                         </div>
                     </div>
                 </div>
+                <span className= "copyright">© Copyrigh chinhcn</span>
             </div>
         );
     }
